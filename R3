@@ -14,6 +14,7 @@ set system processes dhcp-service traceoptions level all
 set system processes dhcp-service traceoptions flag packet
 set chassis aggregated-devices ethernet device-count 50
 set chassis network-services enhanced-ip
+set interfaces ge-0/0/0 description "test description for ansible push"
 set interfaces ge-0/0/0 unit 0 family inet address 10.1.3.1/24
 set interfaces ge-0/0/0 unit 0 family iso
 set interfaces ge-0/0/0 unit 0 family mpls
