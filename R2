@@ -1,4 +1,4 @@
-et version 24.2R1-S2.5
+set version 24.2R1-S2.5
 set system root-authentication encrypted-password "$6$u8e/pMJH$gtOjeQKgGtST9/Kg8Nn6wGSNh72nu3m8qbdJfUASiGz1F01g1imBT0OA649pi95h8sSa0DGLY53BRaikV0AdU1"
 set system login class operator-plus-shell permissions clear
 set system login class operator-plus-shell permissions network
