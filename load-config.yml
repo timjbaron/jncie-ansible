@@ -1,139 +1,153 @@
------
-
+---
 - name: Load Configuration on Juniper Routers
   hosts: localhost
   gather_facts: no
   
   vars:
-  netconf_user: ansible
-  netconf_password: lab123
+    netconf_user: ansible
+    netconf_password: lab123
   
   tasks:
-  - name: Check if R1 config file exists and show content
-    command: cat /root/R1
-    register: r1_file_content
-  - name: Display R1 file content
-    debug:
-    var: r1_file_content.stdout_lines
-  - name: Load R1 configuration from file
-    junipernetworks.junos.junos_config:
-    src: /root/R1
-    src_format: set
-    update: merge
-    comment: Loaded by Ansible
-    confirm_commit: true
-    confirm: 10
-    vars:
-    ansible_connection: netconf
-    ansible_network_os: junos
-    ansible_host: 10.254.5.1
-    ansible_port: 830
-    ansible_user: “{{ netconf_user }}”
-    ansible_password: “{{ netconf_password }}”
-    register: r1_result
-  - name: Display R1 result
-    debug:
-    var: r1_result
-  - name: Check if R2 config file exists and show content
-    command: cat /root/R2
-    register: r2_file_content
-  - name: Display R2 file content
-    debug:
-    var: r2_file_content.stdout_lines
-  - name: Load R2 configuration from file
-    junipernetworks.junos.junos_config:
-    src: /root/R2
-    src_format: set
-    update: merge
-    comment: Loaded by Ansible
-    confirm_commit: true
-    confirm: 10
-    vars:
-    ansible_connection: netconf
-    ansible_network_os: junos
-    ansible_host: 10.254.5.2
-    ansible_port: 830
-    ansible_user: “{{ netconf_user }}”
-    ansible_password: “{{ netconf_password }}”
-    register: r2_result
-  - name: Display R2 result
-    debug:
-    var: r2_result
-  - name: Check if R3 config file exists and show content
-    command: cat /root/R3
-    register: r3_file_content
-  - name: Display R3 file content
-    debug:
-    var: r3_file_content.stdout_lines
-  - name: Load R3 configuration from file
-    junipernetworks.junos.junos_config:
-    src: /root/R3
-    src_format: set
-    update: merge
-    comment: Loaded by Ansible
-    confirm_commit: true
-    confirm: 10
-    vars:
-    ansible_connection: netconf
-    ansible_network_os: junos
-    ansible_host: 10.254.5.3
-    ansible_port: 830
-    ansible_user: “{{ netconf_user }}”
-    ansible_password: “{{ netconf_password }}”
-    register: r3_result
-  - name: Display R3 result
-    debug:
-    var: r3_result
-  - name: Check if R4 config file exists and show content
-    command: cat /root/R4
-    register: r4_file_content
-  - name: Display R4 file content
-    debug:
-    var: r4_file_content.stdout_lines
-  - name: Load R4 configuration from file
-    junipernetworks.junos.junos_config:
-    src: /root/R4
-    src_format: set
-    update: merge
-    comment: Loaded by Ansible
-    confirm_commit: true
-    confirm: 10
-    vars:
-    ansible_connection: netconf
-    ansible_network_os: junos
-    ansible_host: 10.254.5.4
-    ansible_port: 830
-    ansible_user: “{{ netconf_user }}”
-    ansible_password: “{{ netconf_password }}”
-    register: r4_result
-  - name: Display R4 result
-    debug:
-    var: r4_result
-  - name: Check if R5 config file exists and show content
-    command: cat /root/R5
-    register: r5_file_content
-  - name: Display R5 file content
-    debug:
-    var: r5_file_content.stdout_lines
-  - name: Load R5 configuration from file
-    junipernetworks.junos.junos_config:
-    src: /root/R5
-    src_format: set
-    update: merge
-    comment: Loaded by Ansible
-    confirm_commit: true
-    confirm: 10
-    vars:
-    ansible_connection: netconf
-    ansible_network_os: junos
-    ansible_host: 10.254.5.5
-    ansible_port: 830
-    ansible_user: “{{ netconf_user }}”
-    ansible_password: “{{ netconf_password }}”
-    register: r5_result
-  - name: Display R5 result
-    debug:
-    var: r5_result
-  - name: Display summary
-    debug:
-    msg: “Configuration load complete for all routers”
+    - name: Check if R1 config file exists and show content
+      command: cat /root/R1
+      register: r1_file_content
+      
+    - name: Display R1 file content
+      debug:
+        var: r1_file_content.stdout_lines
+    
+    - name: Load R1 configuration from file
+      junipernetworks.junos.junos_config:
+        src: /root/R1
+        src_format: set
+        update: merge
+        comment: Loaded by Ansible
+      vars:
+        ansible_connection: netconf
+        ansible_network_os: junos
+        ansible_host: 10.254.5.1
+        ansible_port: 830
+        ansible_user: "{{ netconf_user }}"
+        ansible_password: "{{ netconf_password }}"
+      register: r1_result
+      
+    - name: Display R1 result
+      debug:
+        var: r1_result
+        verbosity: 0
+
+    - name: Check if R2 config file exists and show content
+      command: cat /root/R2
+      register: r2_file_content
+      
+    - name: Display R2 file content
+      debug:
+        var: r2_file_content.stdout_lines
+    
+    - name: Load R2 configuration from file
+      junipernetworks.junos.junos_config:
+        src: /root/R2
+        src_format: set
+        update: merge
+        comment: Loaded by Ansible
+      vars:
+        ansible_connection: netconf
+        ansible_network_os: junos
+        ansible_host: 10.254.5.2
+        ansible_port: 830
+        ansible_user: "{{ netconf_user }}"
+        ansible_password: "{{ netconf_password }}"
+      register: r2_result
+      
+    - name: Display R2 result
+      debug:
+        var: r2_result
+
+    - name: Check if R3 config file exists and show content
+      command: cat /root/R3
+      register: r3_file_content
+      
+    - name: Display R3 file content
+      debug:
+        var: r3_file_content.stdout_lines
+    
+    - name: Load R3 configuration from file
+      junipernetworks.junos.junos_config:
+        src: /root/R3
+        src_format: set
+        update: merge
+        comment: Loaded by Ansible
+      vars:
+        ansible_connection: netconf
+        ansible_network_os: junos
+        ansible_host: 10.254.5.3
+        ansible_port: 830
+        ansible_user: "{{ netconf_user }}"
+        ansible_password: "{{ netconf_password }}"
+      register: r3_result
+      
+    - name: Display R3 result
+      debug:
+        var: r3_result
+
+    - name: Check if R4 config file exists and show content
+      command: cat /root/R4
+      register: r4_file_content
+      
+    - name: Display R4 file content
+      debug:
+        var: r4_file_content.stdout_lines
+    
+    - name: Load R4 configuration from file
+      junipernetworks.junos.junos_config:
+        src: /root/R4
+        src_format: set
+        update: merge
+        comment: Loaded by Ansible
+        confirm_commit: true
+        confirm: 10
+      vars:
+        ansible_connection: netconf
+        ansible_network_os: junos
+        ansible_host: 10.254.5.4
+        ansible_port: 830
+        ansible_user: "{{ netconf_user }}"
+        ansible_password: "{{ netconf_password }}"
+      register: r4_result
+      
+    - name: Display R4 result
+      debug:
+        var: r4_result
+
+    - name: Check if R5 config file exists and show content
+      command: cat /root/R5
+      register: r5_file_content
+      
+    - name: Display R5 file content
+      debug:
+        var: r5_file_content.stdout_lines
+    
+    - name: Load R5 configuration from file
+      junipernetworks.junos.junos_config:
+        src: /root/R5
+        src_format: set
+        update: merge
+        comment: Loaded by Ansible
+        confirm_commit: true
+        confirm: 10
+      vars:
+        ansible_connection: netconf
+        ansible_network_os: junos
+        ansible_host: 10.254.5.5
+        ansible_port: 830
+        ansible_user: "{{ netconf_user }}"
+        ansible_password: "{{ netconf_password }}"
+      register: r5_result
+      
+    - name: Display R5 result
+      debug:
+        var: r5_result
+        
+    - name: Display summary
+      debug:
+        msg: "Configuration load complete for all routers"
