@@ -1,0 +1,62 @@
+et version 24.2R1-S2.5
+set system root-authentication encrypted-password "$6$u8e/pMJH$gtOjeQKgGtST9/Kg8Nn6wGSNh72nu3m8qbdJfUASiGz1F01g1imBT0OA649pi95h8sSa0DGLY53BRaikV0AdU1"
+set system login class operator-plus-shell permissions clear
+set system login class operator-plus-shell permissions network
+set system login class operator-plus-shell permissions reset
+set system login class operator-plus-shell permissions shell
+set system login class operator-plus-shell permissions trace
+set system login class operator-plus-shell permissions view
+set system login user ansible uid 2001
+set system login user ansible class super-user
+set system login user ansible authentication encrypted-password "$6$nDAd9CbN$IUoK6a3ZF/Kcmm2UWzCJ2Ibq7fcyhN1tq6MKpl6oAHbjbsZzHu89bHlxhGKODGZt6ar6R5Nvwq9z.ZEGG001t1"
+set system login user noc-operator uid 2000
+set system login user noc-operator class operator-plus-shell
+set system login user noc-operator authentication encrypted-password "$6$h1CyWwaJ$c3YHs9Z9g5p7V1FwFysV.I3qWJaq8F9DJaoIzu94vSQRourcDGlZstajqyPefb9Y28167Y886JdC497HunaxY0"
+set system services netconf ssh
+set system services ssh root-login allow
+set system syslog user noc-operator any any
+set system syslog file interactive-commands interactive-commands any
+set system syslog file messages any notice
+set system syslog file messages authorization info
+set system processes dhcp-service traceoptions file dhcp_logfile
+set system processes dhcp-service traceoptions file size 10m
+set system processes dhcp-service traceoptions level all
+set system processes dhcp-service traceoptions flag packet
+set chassis network-services enhanced-ip
+set interfaces ge-0/0/0 unit 0 family inet address 10.2.4.1/24
+set interfaces ge-0/0/0 unit 0 family iso
+set interfaces ge-0/0/0 unit 0 family mpls
+set interfaces ge-0/0/1 unit 0 family inet address 10.1.2.2/24
+set interfaces ge-0/0/1 unit 0 family iso
+set interfaces ge-0/0/1 unit 0 family mpls
+set interfaces fxp0 unit 0 family inet address 10.254.5.2/24
+set interfaces fxp0 unit 0 family inet6 dhcpv6-client client-type stateful
+set interfaces fxp0 unit 0 family inet6 dhcpv6-client client-ia-type ia-na
+set interfaces fxp0 unit 0 family inet6 dhcpv6-client client-identifier duid-type duid-ll
+set interfaces fxp0 unit 0 family inet6 dhcpv6-client vendor-id Juniper:vmx:VM6858B0F900
+set interfaces lo0 unit 0 family inet address 172.16.5.2/32
+set interfaces lo0 unit 0 family iso address 49.0001.1721.6000.5002.00
+set protocols router-advertisement interface fxp0.0 managed-configuration
+set protocols bgp group ibgp type internal
+set protocols bgp group ibgp multihop
+set protocols bgp group ibgp local-address 172.16.5.2
+set protocols bgp group ibgp family inet unicast
+set protocols bgp group ibgp family inet-vpn unicast
+set protocols bgp group ibgp family inet6 labeled-unicast explicit-null
+set protocols bgp group ibgp local-as 65001
+set protocols bgp group ibgp neighbor 172.16.5.3
+set protocols bgp group ibgp neighbor 172.16.5.1
+set protocols bgp group ibgp neighbor 172.16.5.4
+set protocols isis interface ge-0/0/0.0
+set protocols isis interface ge-0/0/1.0
+set protocols isis interface all
+set protocols isis interface lo0.0
+set protocols isis source-packet-routing srgb start-label 26000
+set protocols isis source-packet-routing srgb index-range 1000
+set protocols isis source-packet-routing node-segment ipv4-index 402
+set protocols ldp interface ge-0/0/0.0
+set protocols ldp interface ge-0/0/1.0
+set protocols ldp session 172.16.5.1 authentication-key "$9$FIPn6CuKvLN-wRheW"
+set protocols ldp session 172.16.5.4 authentication-key "$9$GYjkPpu1hclFntO"
+set protocols mpls interface ge-0/0/0.0
+set protocols mpls interface ge-0/0/1.0
