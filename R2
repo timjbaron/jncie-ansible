@@ -30,6 +30,9 @@ set interfaces ge-0/0/0 unit 0 family mpls
 set interfaces ge-0/0/1 unit 0 family inet address 10.1.2.2/24
 set interfaces ge-0/0/1 unit 0 family iso
 set interfaces ge-0/0/1 unit 0 family mpls
+set interfaces ge-0/0/3 unit 0 family inet address 10.5.2.2/24
+set interfaces ge-0/0/3 unit 0 family iso
+set interfaces ge-0/0/3 unit 0 family mpls
 set interfaces fxp0 unit 0 family inet address 10.254.5.2/24
 set interfaces fxp0 unit 0 family inet6 dhcpv6-client client-type stateful
 set interfaces fxp0 unit 0 family inet6 dhcpv6-client client-ia-type ia-na
