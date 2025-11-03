@@ -22,6 +22,9 @@ set interfaces ge-0/0/1 unit 0 family inet address 10.3.4.2/24
 set interfaces ge-0/0/1 unit 0 family iso
 set interfaces ge-0/0/1 unit 0 family mpls
 set interfaces ge-0/0/2 gigether-options 802.3ad ae0
+set interfaces ge-0/0/3 unit 0 family inet address 10.5.3.2/24
+set interfaces ge-0/0/3 unit 0 family iso
+set interfaces ge-0/0/3 unit 0 family mpls
 set interfaces fxp0 unit 0 family inet address 10.254.5.3/24
 set interfaces fxp0 unit 0 family inet6 dhcpv6-client client-type stateful
 set interfaces fxp0 unit 0 family inet6 dhcpv6-client client-ia-type ia-na
