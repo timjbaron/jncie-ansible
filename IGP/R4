@@ -32,56 +32,9 @@ set interfaces fxp0 unit 0 family inet6 dhcpv6-client vendor-id Juniper:vmx:VM68
 set interfaces lo0 unit 0 family inet address 172.16.5.4/32
 set interfaces lo0 unit 0 family iso address 49.0001.1721.6000.5004.00
 set interfaces lo0 unit 1 family inet address 172.16.5.14/32
-set policy-options policy-statement CE2-export term 1 from protocol bgp
-set policy-options policy-statement CE2-export term 1 from protocol direct
-set policy-options policy-statement CE2-export term 1 then community add CE
-set policy-options policy-statement CE2-export term 1 then accept
-set policy-options policy-statement CE2-import term 1 from protocol bgp
-set policy-options policy-statement CE2-import term 1 from community CE
-set policy-options policy-statement CE2-import term 1 then accept
-set policy-options policy-statement load-balance term 1 then load-balance per-packet
-set policy-options policy-statement local-ipv6-out term 1 from family inet6
-set policy-options policy-statement local-ipv6-out term 1 from route-filter 2001:db8:2:1::1/128 exact
-set policy-options policy-statement local-ipv6-out term 1 then accept
-set policy-options policy-statement map-over-lsp term 1 from protocol bgp
-set policy-options policy-statement map-over-lsp term 1 from route-filter 1.1.1.1/32 exact
-set policy-options policy-statement map-over-lsp term 1 then install-nexthop lsp R4-to-R1-2
-set policy-options community CE members target:65001:10001
-set routing-instances CE2 instance-type vrf
-set routing-instances CE2 protocols bgp group CE2 peer-as 10001
-set routing-instances CE2 protocols bgp group CE2 neighbor 192.168.2.2
-set routing-instances CE2 interface ge-0/0/2.0
-set routing-instances CE2 interface lo0.1
-set routing-instances CE2 vrf-import CE2-import
-set routing-instances CE2 vrf-export CE2-export
-set routing-options route-distinguisher-id 172.16.5.4
-set routing-options autonomous-system 65001
-set routing-options forwarding-table export map-over-lsp
-set routing-options forwarding-table export load-balance
-set protocols router-advertisement interface fxp0.0 managed-configuration
-set protocols bgp group ibgp type internal
-set protocols bgp group ibgp local-address 172.16.5.4
-set protocols bgp group ibgp family inet unicast
-set protocols bgp group ibgp family inet-vpn unicast
-set protocols bgp group ibgp family inet6 labeled-unicast explicit-null
-set protocols bgp group ibgp local-as 65001
-set protocols bgp group ibgp neighbor 172.16.5.5
+
 set protocols isis interface ge-0/0/0.0
 set protocols isis interface ge-0/0/1.0
 set protocols isis interface ge-0/0/3.0
-set protocols isis interface all ldp-synchronization
-set protocols isis interface lo0.0
-set protocols isis source-packet-routing srgb start-label 26000
-set protocols isis source-packet-routing srgb index-range 1000
-set protocols isis source-packet-routing node-segment ipv4-index 404
-set protocols ldp interface ge-0/0/0.0
-set protocols ldp interface ge-0/0/1.0
-set protocols ldp session 172.16.5.2 authentication-key "$9$iqPQB1hrlM/COR"
-set protocols mpls interface ge-0/0/0.0
-set protocols mpls interface ge-0/0/1.0
-set protocols rsvp interface ge-0/0/0.0
-set protocols rsvp interface ge-0/0/1.0
-set protocols source-packet-routing segment-list R4-to-R1 hop1 label 26403
-set protocols source-packet-routing segment-list R4-to-R1 hop2 label 26401
-set protocols source-packet-routing source-routing-path R4-to-R1 to 172.16.5.1
-set protocols source-packet-routing source-routing-path R4-to-R1 primary R4-to-R1
+set protocols isis interface lo0.0 passive 
+set protocols isis level 2 disable wide-metrics-only
