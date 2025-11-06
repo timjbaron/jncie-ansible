@@ -1,0 +1,61 @@
+set version 24.2R1-S2.5
+set system root-authentication encrypted-password "$6$HHF1jmvp$av0.T78NIrH5AyYl2OOXJWW/PTWePd8z8bMk1cFLemULJTJj8EeIQaNlnz38PZ5k.jN3E7sLxUMlRvGJ8DKQU."
+set system login user ansible uid 2000
+set system login user ansible class super-user
+set system login user ansible authentication encrypted-password "$6$hsOXe0GF$ZsW1wAMH/8f8JcBCVGrxKV/0Nnfk4rfzulPy88ng3x3VBT714CRijtnEyvBc4IS15w.AQifupmrtY2mN6plSU0"
+set system services netconf ssh
+set system services ssh
+set system syslog file interactive-commands interactive-commands any
+set system syslog file messages any notice
+set system syslog file messages authorization info
+set system processes dhcp-service traceoptions file dhcp_logfile
+set system processes dhcp-service traceoptions file size 10m
+set system processes dhcp-service traceoptions level all
+set system processes dhcp-service traceoptions flag packet
+set chassis aggregated-devices ethernet device-count 50
+set chassis network-services enhanced-ip
+set interfaces ge-0/0/0 description "test description for ansible push"
+set interfaces ge-0/0/0 unit 0 family inet address 10.1.3.1/24
+set interfaces ge-0/0/0 unit 0 family iso
+set interfaces ge-0/0/0 unit 0 family mpls
+set interfaces ge-0/0/1 unit 0 family inet address 10.3.4.2/24
+set interfaces ge-0/0/1 unit 0 family iso
+set interfaces ge-0/0/1 unit 0 family mpls
+set interfaces ge-0/0/2 gigether-options 802.3ad ae0
+set interfaces ge-0/0/3 unit 0 family inet address 10.5.3.2/24
+set interfaces ge-0/0/3 unit 0 family iso
+set interfaces ge-0/0/3 unit 0 family mpls
+set interfaces fxp0 unit 0 family inet address 10.254.5.3/24
+set interfaces fxp0 unit 0 family inet6 dhcpv6-client client-type stateful
+set interfaces fxp0 unit 0 family inet6 dhcpv6-client client-ia-type ia-na
+set interfaces fxp0 unit 0 family inet6 dhcpv6-client client-identifier duid-type duid-ll
+set interfaces fxp0 unit 0 family inet6 dhcpv6-client vendor-id Juniper:vmx:VM6858B0F900
+set interfaces lo0 unit 0 family inet address 172.16.5.3/32
+set interfaces lo0 unit 0 family iso address 49.0001.1721.6000.5003.00
+set protocols router-advertisement interface fxp0.0 managed-configuration
+set protocols bgp group ibgp type internal
+set protocols bgp group ibgp multihop
+set protocols bgp group ibgp local-address 172.16.5.3
+set protocols bgp group ibgp family inet unicast
+set protocols bgp group ibgp family inet-vpn unicast
+set protocols bgp group ibgp family inet6 labeled-unicast explicit-null
+set protocols bgp group ibgp local-as 65001
+set protocols bgp group ibgp neighbor 172.16.5.2
+set protocols bgp group ibgp neighbor 172.16.5.1
+set protocols bgp group ibgp neighbor 172.16.5.4
+set protocols bgp group ibgp neighbor 172.16.5.5
+set protocols isis interface ge-0/0/0.0
+set protocols isis interface ge-0/0/1.0
+set protocols isis interface ge-0/0/3.0
+set protocols isis interface all ldp-synchronization
+set protocols isis interface lo0.0 passive
+set protocols isis source-packet-routing srgb start-label 26000
+set protocols isis source-packet-routing srgb index-range 1000
+set protocols isis source-packet-routing node-segment ipv4-index 403
+set protocols isis level 2 disable
+set protocols isis level 2 wide-metrics-only
+set protocols mpls interface ge-0/0/0.0
+set protocols mpls interface ge-0/0/1.0
+set protocols rsvp interface ge-0/0/0.0
+set protocols rsvp interface ge-0/0/1.0
+set protocols source-packet-routing
