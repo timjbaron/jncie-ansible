@@ -31,7 +31,6 @@ set interfaces fxp0 unit 0 family inet6 dhcpv6-client client-identifier duid-typ
 set interfaces fxp0 unit 0 family inet6 dhcpv6-client vendor-id Juniper:vmx:VM6858B0F900
 set interfaces lo0 unit 0 family inet address 172.16.5.4/32
 set interfaces lo0 unit 0 family iso address 49.0001.1721.6000.5004.00
-set interfaces lo0 unit 1 family inet address 172.16.5.14/32
 
 set protocols isis interface ge-0/0/0.0
 set protocols isis interface ge-0/0/1.0
