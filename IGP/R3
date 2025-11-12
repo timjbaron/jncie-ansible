@@ -37,4 +37,5 @@ set protocols isis interface ge-0/0/0.0
 set protocols isis interface ge-0/0/1.0
 set protocols isis interface ge-0/0/3.0
 set protocols isis interface lo0.0 passive 
-set protocols isis level 2 disable wide-metrics-only
+set protocols isis level 1 disable
+set protocols isis levle 2 wide-metrics-only
