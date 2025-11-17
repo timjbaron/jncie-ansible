@@ -1,19 +1,16 @@
-set version 24.2R1-S2.5
-set system root-authentication encrypted-password "$6$Ylab1N68$2MKhv/REMLLs6qMdGZ7Jvv8VG6hxeNbfgf/xnlyhmh3lbPqfiNaNGmpsmdau7wNe0CIRohfIGg.J4q5cM9gp00"
-set system login user ansible uid 2000
+set system host-name R5
+
+set system root-authentication encrypted-password "$6$HHF1jmvp$av0.T78NIrH5AyYl2OOXJWW/PTWePd8z8bMk1cFLemULJTJj8EeIQaNlnz38PZ5k.jN3E7sLxUMlRvGJ8DKQU."
+set system login user ansible uid 2001
 set system login user ansible class super-user
 set system login user ansible authentication encrypted-password "$6$hsOXe0GF$ZsW1wAMH/8f8JcBCVGrxKV/0Nnfk4rfzulPy88ng3x3VBT714CRijtnEyvBc4IS15w.AQifupmrtY2mN6plSU0"
+
 set system services netconf ssh
 set system services ssh
 
 set interfaces ge-0/0/1 unit 0 family inet address 10.5.1.1/24
-set interfaces ge-0/0/1 unit 0 family iso
 set interfaces ge-0/0/2 unit 0 family inet address 10.5.2.1/24
-set interfaces ge-0/0/2 unit 0 family iso
 set interfaces ge-0/0/3 unit 0 family inet address 10.5.3.1/24
-set interfaces ge-0/0/3 unit 0 family iso
 set interfaces ge-0/0/4 unit 0 family inet address 10.5.4.1/24
-set interfaces ge-0/0/4 unit 0 family iso\
 set interfaces fxp0 unit 0 family inet address 10.254.5.5/24
 set interfaces lo0 unit 0 family inet address 172.16.5.5/32
-set interfaces lo0 unit 0 family iso address 49.0001.1721.6000.5005.00

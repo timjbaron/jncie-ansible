@@ -1,153 +1,164 @@
 ---
-- name: Load Configuration on Juniper Routers
+- name: Load configuration via SSH with delete + load set (R1-R5)
   hosts: localhost
   gather_facts: no
   
   vars:
-    netconf_user: ansible
-    netconf_password: lab123
+    ssh_user: ansible
+    ssh_password: lab123
+    config_dir: "."
   
   tasks:
-    - name: Check if R1 config file exists and show content
-      command: cat /root/R1
+    # R1 Configuration
+    - name: Read R1 config file
+      shell: cat {{ config_dir }}/R1
       register: r1_file_content
+      changed_when: false
       
-    - name: Display R1 file content
+    - name: Display R1 file content (first 10 lines)
       debug:
-        var: r1_file_content.stdout_lines
+        msg: "{{ r1_file_content.stdout_lines[:10] }}"
     
-    - name: Load R1 configuration from file
-      junipernetworks.junos.junos_config:
-        src: /root/R1
-        src_format: set
-        update: merge
-        comment: Loaded by Ansible
-      vars:
-        ansible_connection: netconf
-        ansible_network_os: junos
-        ansible_host: 10.254.5.1
-        ansible_port: 830
-        ansible_user: "{{ netconf_user }}"
-        ansible_password: "{{ netconf_password }}"
-      register: r1_result
+    - name: Copy R1 config to router /tmp
+      shell: |
+        sshpass -p '{{ ssh_password }}' scp -o StrictHostKeyChecking=no {{ config_dir }}/R1 {{ ssh_user }}@10.254.5.1:/tmp/ansible_config.txt
       
-    - name: Display R1 result
+    - name: Delete and load R1 configuration via SSH
+      shell: |
+        sshpass -p '{{ ssh_password }}' ssh -o StrictHostKeyChecking=no -T {{ ssh_user }}@10.254.5.1 << 'ENDSSH'
+        configure
+        delete
+        yes
+        load set /tmp/ansible_config.txt
+        commit
+        exit
+        ENDSSH
+      register: r1_load
+      
+    - name: Display R1 load result
       debug:
-        var: r1_result
-        verbosity: 0
+        var: r1_load.stdout_lines
 
-    - name: Check if R2 config file exists and show content
-      command: cat /root/R2
+    # R2 Configuration
+    - name: Read R2 config file
+      shell: cat {{ config_dir }}/R2
       register: r2_file_content
+      changed_when: false
       
-    - name: Display R2 file content
+    - name: Display R2 file content (first 10 lines)
       debug:
-        var: r2_file_content.stdout_lines
+        msg: "{{ r2_file_content.stdout_lines[:10] }}"
     
-    - name: Load R2 configuration from file
-      junipernetworks.junos.junos_config:
-        src: /root/R2
-        src_format: set
-        update: merge
-        comment: Loaded by Ansible
-      vars:
-        ansible_connection: netconf
-        ansible_network_os: junos
-        ansible_host: 10.254.5.2
-        ansible_port: 830
-        ansible_user: "{{ netconf_user }}"
-        ansible_password: "{{ netconf_password }}"
-      register: r2_result
+    - name: Copy R2 config to router /tmp
+      shell: |
+        sshpass -p '{{ ssh_password }}' scp -o StrictHostKeyChecking=no {{ config_dir }}/R2 {{ ssh_user }}@10.254.5.2:/tmp/ansible_config.txt
       
-    - name: Display R2 result
+    - name: Delete and load R2 configuration via SSH
+      shell: |
+        sshpass -p '{{ ssh_password }}' ssh -o StrictHostKeyChecking=no -T {{ ssh_user }}@10.254.5.2 << 'ENDSSH'
+        configure
+        delete
+        yes
+        load set /tmp/ansible_config.txt
+        commit
+        exit
+        ENDSSH
+      register: r2_load
+      
+    - name: Display R2 load result
       debug:
-        var: r2_result
+        var: r2_load.stdout_lines
 
-    - name: Check if R3 config file exists and show content
-      command: cat /root/R3
+    # R3 Configuration
+    - name: Read R3 config file
+      shell: cat {{ config_dir }}/R3
       register: r3_file_content
+      changed_when: false
       
-    - name: Display R3 file content
+    - name: Display R3 file content (first 10 lines)
       debug:
-        var: r3_file_content.stdout_lines
+        msg: "{{ r3_file_content.stdout_lines[:10] }}"
     
-    - name: Load R3 configuration from file
-      junipernetworks.junos.junos_config:
-        src: /root/R3
-        src_format: set
-        update: merge
-        comment: Loaded by Ansible
-      vars:
-        ansible_connection: netconf
-        ansible_network_os: junos
-        ansible_host: 10.254.5.3
-        ansible_port: 830
-        ansible_user: "{{ netconf_user }}"
-        ansible_password: "{{ netconf_password }}"
-      register: r3_result
+    - name: Copy R3 config to router /tmp
+      shell: |
+        sshpass -p '{{ ssh_password }}' scp -o StrictHostKeyChecking=no {{ config_dir }}/R3 {{ ssh_user }}@10.254.5.3:/tmp/ansible_config.txt
       
-    - name: Display R3 result
+    - name: Delete and load R3 configuration via SSH
+      shell: |
+        sshpass -p '{{ ssh_password }}' ssh -o StrictHostKeyChecking=no -T {{ ssh_user }}@10.254.5.3 << 'ENDSSH'
+        configure
+        delete
+        yes
+        load set /tmp/ansible_config.txt
+        commit
+        exit
+        ENDSSH
+      register: r3_load
+      
+    - name: Display R3 load result
       debug:
-        var: r3_result
+        var: r3_load.stdout_lines
 
-    - name: Check if R4 config file exists and show content
-      command: cat /root/R4
+    # R4 Configuration
+    - name: Read R4 config file
+      shell: cat {{ config_dir }}/R4
       register: r4_file_content
+      changed_when: false
       
-    - name: Display R4 file content
+    - name: Display R4 file content (first 10 lines)
       debug:
-        var: r4_file_content.stdout_lines
+        msg: "{{ r4_file_content.stdout_lines[:10] }}"
     
-    - name: Load R4 configuration from file
-      junipernetworks.junos.junos_config:
-        src: /root/R4
-        src_format: set
-        update: merge
-        comment: Loaded by Ansible
-        confirm_commit: true
-        confirm: 10
-      vars:
-        ansible_connection: netconf
-        ansible_network_os: junos
-        ansible_host: 10.254.5.4
-        ansible_port: 830
-        ansible_user: "{{ netconf_user }}"
-        ansible_password: "{{ netconf_password }}"
-      register: r4_result
+    - name: Copy R4 config to router /tmp
+      shell: |
+        sshpass -p '{{ ssh_password }}' scp -o StrictHostKeyChecking=no {{ config_dir }}/R4 {{ ssh_user }}@10.254.5.4:/tmp/ansible_config.txt
       
-    - name: Display R4 result
+    - name: Delete and load R4 configuration via SSH
+      shell: |
+        sshpass -p '{{ ssh_password }}' ssh -o StrictHostKeyChecking=no -T {{ ssh_user }}@10.254.5.4 << 'ENDSSH'
+        configure
+        delete
+        yes
+        load set /tmp/ansible_config.txt
+        commit
+        exit
+        ENDSSH
+      register: r4_load
+      
+    - name: Display R4 load result
       debug:
-        var: r4_result
+        var: r4_load.stdout_lines
 
-    - name: Check if R5 config file exists and show content
-      command: cat /root/R5
+    # R5 Configuration
+    - name: Read R5 config file
+      shell: cat {{ config_dir }}/R5
       register: r5_file_content
+      changed_when: false
       
-    - name: Display R5 file content
+    - name: Display R5 file content (first 10 lines)
       debug:
-        var: r5_file_content.stdout_lines
+        msg: "{{ r5_file_content.stdout_lines[:10] }}"
     
-    - name: Load R5 configuration from file
-      junipernetworks.junos.junos_config:
-        src: /root/R5
-        src_format: set
-        update: merge
-        comment: Loaded by Ansible
-        confirm_commit: true
-        confirm: 10
-      vars:
-        ansible_connection: netconf
-        ansible_network_os: junos
-        ansible_host: 10.254.5.5
-        ansible_port: 830
-        ansible_user: "{{ netconf_user }}"
-        ansible_password: "{{ netconf_password }}"
-      register: r5_result
+    - name: Copy R5 config to router /tmp
+      shell: |
+        sshpass -p '{{ ssh_password }}' scp -o StrictHostKeyChecking=no {{ config_dir }}/R5 {{ ssh_user }}@10.254.5.5:/tmp/ansible_config.txt
       
-    - name: Display R5 result
+    - name: Delete and load R5 configuration via SSH
+      shell: |
+        sshpass -p '{{ ssh_password }}' ssh -o StrictHostKeyChecking=no -T {{ ssh_user }}@10.254.5.5 << 'ENDSSH'
+        configure
+        delete
+        yes
+        load set /tmp/ansible_config.txt
+        commit
+        exit
+        ENDSSH
+      register: r5_load
+      
+    - name: Display R5 load result
       debug:
-        var: r5_result
+        var: r5_load.stdout_lines
         
     - name: Display summary
       debug:
-        msg: "Configuration load complete for all routers"
+        msg: "Configuration load complete for all routers (R1-R5)"

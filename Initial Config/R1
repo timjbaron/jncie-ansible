@@ -1,124 +1,15 @@
 set system host-name R1
+
 set system root-authentication encrypted-password "$6$HHF1jmvp$av0.T78NIrH5AyYl2OOXJWW/PTWePd8z8bMk1cFLemULJTJj8EeIQaNlnz38PZ5k.jN3E7sLxUMlRvGJ8DKQU."
 set system login user ansible uid 2001
 set system login user ansible class super-user
 set system login user ansible authentication encrypted-password "$6$hsOXe0GF$ZsW1wAMH/8f8JcBCVGrxKV/0Nnfk4rfzulPy88ng3x3VBT714CRijtnEyvBc4IS15w.AQifupmrtY2mN6plSU0"
-set system login user lab uid 2000
-set system login user lab class super-user
-set system login user lab authentication encrypted-password "$6$BKEpDylT$aSq/RvAH/8zzVTLyykfkHKA26zLoN6VgNM73qRDL9XMO81J5HYL5oOKY1Ek3nOm1QE/B144/d52bSfmMDck6.0"
+
 set system services netconf ssh
 set system services ssh
-set system time-zone Europe/Amsterdam
-set system authentication-order radius
-set system authentication-order password
-set system name-server 10.10.1.1
-set system radius-server 10.1.1.1 secret "$9$i.Qnhclv87O1EyK8dVik.5z6"
-set system radius-server 10.1.1.1 timeout 2
-set system radius-server 10.1.1.1 retry 1
-set system syslog file interactive-commands interactive-commands any
-set system syslog file messages any notice
-set system syslog file messages authorization info
-set system processes dhcp-service traceoptions file dhcp_logfile
-set system processes dhcp-service traceoptions file size 10m
-set system processes dhcp-service traceoptions level all
-set system processes dhcp-service traceoptions flag packet
-set system ntp server 10.1.1.1
-set chassis aggregated-devices ethernet device-count 50
-set chassis network-services enhanced-ip
-set interfaces apply-groups mpls-iso-inet6
-set interfaces ge-0/0/0 description "test description for ansible push"
+
 set interfaces ge-0/0/0 unit 0 family inet address 10.1.2.1/24
-set interfaces ge-0/0/0 unit 0 family iso
-set interfaces ge-0/0/0 unit 0 family mpls
 set interfaces ge-0/0/1 unit 0 family inet address 10.1.3.2/24
-set interfaces ge-0/0/1 unit 0 family iso
-set interfaces ge-0/0/1 unit 0 family mpls
-set interfaces ge-0/0/2 unit 0 family inet address 192.168.1.1/24
 set interfaces ge-0/0/3 unit 0 family inet address 10.5.1.2/24
-set interfaces ge-0/0/3 unit 0 family iso
-set interfaces ge-0/0/3 unit 0 family mpls
-set interfaces ge-0/0/4 unit 0 family inet address 172.16.1.49/30
-set interfaces ge-0/0/4 unit 0 family inet6 address 2001:db8:1:1::1/64
-set interfaces ge-0/0/5 unit 0 family inet address 172.22.1.1/24
-set interfaces ge-0/0/5 unit 0 family iso
-set interfaces fxp0 apply-groups-except mpls-iso-inet6
-set interfaces fxp0 unit 0 family inet address 10.254.5.1/24
-set interfaces fxp0 unit 0 family inet6 dhcpv6-client client-type stateful
-set interfaces fxp0 unit 0 family inet6 dhcpv6-client client-ia-type ia-na
-set interfaces fxp0 unit 0 family inet6 dhcpv6-client client-identifier duid-type duid-ll
-set interfaces fxp0 unit 0 family inet6 dhcpv6-client vendor-id Juniper:vmx:VM6858B0F900
+set interfaces fxp0 unit 0 family inet address 10.254.5.1/
 set interfaces lo0 unit 0 family inet address 172.16.5.1/32
-set interfaces lo0 unit 0 family iso address 49.0001.1721.6000.5001.00
-set interfaces lo0 unit 1 family inet address 172.16.5.11/32
-set policy-options policy-statement CE1-export term 1 from protocol bgp
-set policy-options policy-statement CE1-export term 1 from protocol direct
-set policy-options policy-statement CE1-export term 1 then community set CE
-set policy-options policy-statement CE1-export term 1 then accept
-set policy-options policy-statement CE1-import term 1 from protocol bgp
-set policy-options policy-statement CE1-import term 1 from community CE
-set policy-options policy-statement CE1-import term 1 then accept
-set policy-options policy-statement ipv6-all term 1 from family inet6
-set policy-options policy-statement ipv6-all term 1 then accept
-set policy-options policy-statement ldp-routes term 1 from route-filter 172.16.1.48/30 exact
-set policy-options policy-statement ldp-routes term 1 from route-filter 172.16.1.49/32 exact
-set policy-options policy-statement ldp-routes term 1 then accept
-set policy-options community C3 members 54591:1620
-set policy-options community CE members target:65001:10001
-set policy-options as-path c-90 6451.:90
-set policy-options as-path c-rtbh 6451.:666
-set routing-instances CE1 instance-type vrf
-set routing-instances CE1 protocols bgp group CE1 peer-as 10001
-set routing-instances CE1 protocols bgp group CE1 neighbor 192.168.1.2
-set routing-instances CE1 interface ge-0/0/2.0
-set routing-instances CE1 interface lo0.1
-set routing-instances CE1 vrf-import CE1-import
-set routing-instances CE1 vrf-export CE1-export
-set routing-options route-distinguisher-id 172.16.5.1
-set routing-options autonomous-system 65001
-set routing-options static route 10.10.10.0/24 next-hop 10.10.1.254
-set routing-options static route 10.10.10.0/24 no-readvertise
-set protocols router-advertisement interface fxp0.0 managed-configuration
-set protocols bgp group ibgp type internal
-set protocols bgp group ibgp local-address 172.16.5.1
-set protocols bgp group ibgp family inet unicast
-set protocols bgp group ibgp family inet-vpn unicast
-set protocols bgp group ibgp family inet6 labeled-unicast explicit-null
-set protocols bgp group ibgp local-as 65001
-set protocols bgp group ibgp neighbor 172.16.5.5
-set protocols bgp group peer-ebgp-ipv6 type external
-set protocols bgp group peer-ebgp-ipv6 import ipv6-all
-set protocols bgp group peer-ebgp-ipv6 family inet6 unicast
-set protocols bgp group peer-ebgp-ipv6 export ipv6-all
-set protocols bgp group peer-ebgp-ipv6 local-as 65001
-set protocols bgp group peer-ebgp-ipv6 neighbor 2001:db8:1:1::2 peer-as 2600
-set protocols isis interface ge-0/0/0.0 level 1 post-convergence-lfa node-protection
-set protocols isis interface ge-0/0/1.0 level 1 post-convergence-lfa node-protection
-set protocols isis interface ge-0/0/3.0
-set protocols isis interface ge-0/0/4.0 passive
-set protocols isis interface ge-0/0/5.0
-set protocols isis interface lo0.0
-set protocols isis source-packet-routing srgb start-label 26000
-set protocols isis source-packet-routing srgb index-range 1000
-set protocols isis source-packet-routing node-segment ipv4-index 401
-set protocols isis backup-spf-options use-post-convergence-lfa
-set protocols isis backup-spf-options use-source-packet-routing
-set protocols isis traffic-engineering l3-unicast-topology
-set protocols ldp interface ge-0/0/0.0
-set protocols ldp interface ge-0/0/1.0
-set protocols ldp session 172.16.5.2 authentication-key "$9$H.fz1IcleW9ABE"
-set protocols mpls admin-groups green 0
-set protocols mpls label-switched-path R1-to-R4 to 172.16.5.4
-set protocols mpls label-switched-path R1-to-R3 to 172.16.5.3
-set protocols mpls label-switched-path R1-to-R2 to 172.16.5.2
-set protocols mpls label-range static-label-range 400000 500000
-set protocols mpls interface ge-0/0/1.0
-set protocols mpls interface ge-0/0/0.0 admin-group green
-set protocols mpls static-label-switched-path lag-single-interface transit 400001 next-hop 10.1.2.2
-set protocols mpls static-label-switched-path lag-single-interface transit 400001 pop
-set protocols rsvp interface ge-0/0/0.0 subscription 120
-set protocols rsvp interface ge-0/0/1.0
-set protocols source-packet-routing segment-list R1-to-R4 hop1 label 26402
-set protocols source-packet-routing segment-list R1-to-R4 hop2 label 26404
-set protocols source-packet-routing source-routing-path R1-to-R4 to 172.16.5.4
-set protocols source-packet-routing source-routing-path R1-to-R4 primary R1-to-R4
-set protocols source-packet-routing inherit-label-nexthops
