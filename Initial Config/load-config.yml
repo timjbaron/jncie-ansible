@@ -21,11 +21,11 @@
     
     - name: Copy R1 config to router /tmp
       shell: |
-        sshpass -p '{{ ssh_password }}' scp -o StrictHostKeyChecking=no {{ config_dir }}/R1 {{ ssh_user }}@10.254.5.1:/tmp/ansible_config.txt
+        sshpass -p '{{ ssh_password }}' scp -o StrictHostKeyChecking=no {{ config_dir }}/R1 {{ ssh_user }}@172.20.20.1:/tmp/ansible_config.txt
       
     - name: Delete and load R1 configuration via SSH
       shell: |
-        sshpass -p '{{ ssh_password }}' ssh -o StrictHostKeyChecking=no -T {{ ssh_user }}@10.254.5.1 << 'ENDSSH'
+        sshpass -p '{{ ssh_password }}' ssh -o StrictHostKeyChecking=no -T {{ ssh_user }}@172.20.20.1 << 'ENDSSH'
         configure
         delete
         yes
@@ -51,11 +51,11 @@
     
     - name: Copy R2 config to router /tmp
       shell: |
-        sshpass -p '{{ ssh_password }}' scp -o StrictHostKeyChecking=no {{ config_dir }}/R2 {{ ssh_user }}@10.254.5.2:/tmp/ansible_config.txt
+        sshpass -p '{{ ssh_password }}' scp -o StrictHostKeyChecking=no {{ config_dir }}/R2 {{ ssh_user }}@172.20.20.2:/tmp/ansible_config.txt
       
     - name: Delete and load R2 configuration via SSH
       shell: |
-        sshpass -p '{{ ssh_password }}' ssh -o StrictHostKeyChecking=no -T {{ ssh_user }}@10.254.5.2 << 'ENDSSH'
+        sshpass -p '{{ ssh_password }}' ssh -o StrictHostKeyChecking=no -T {{ ssh_user }}@172.20.20.2 << 'ENDSSH'
         configure
         delete
         yes
@@ -81,11 +81,11 @@
     
     - name: Copy R3 config to router /tmp
       shell: |
-        sshpass -p '{{ ssh_password }}' scp -o StrictHostKeyChecking=no {{ config_dir }}/R3 {{ ssh_user }}@10.254.5.3:/tmp/ansible_config.txt
+        sshpass -p '{{ ssh_password }}' scp -o StrictHostKeyChecking=no {{ config_dir }}/R3 {{ ssh_user }}@172.20.20.3:/tmp/ansible_config.txt
       
     - name: Delete and load R3 configuration via SSH
       shell: |
-        sshpass -p '{{ ssh_password }}' ssh -o StrictHostKeyChecking=no -T {{ ssh_user }}@10.254.5.3 << 'ENDSSH'
+        sshpass -p '{{ ssh_password }}' ssh -o StrictHostKeyChecking=no -T {{ ssh_user }}@172.20.20.3 << 'ENDSSH'
         configure
         delete
         yes
@@ -111,11 +111,11 @@
     
     - name: Copy R4 config to router /tmp
       shell: |
-        sshpass -p '{{ ssh_password }}' scp -o StrictHostKeyChecking=no {{ config_dir }}/R4 {{ ssh_user }}@10.254.5.4:/tmp/ansible_config.txt
+        sshpass -p '{{ ssh_password }}' scp -o StrictHostKeyChecking=no {{ config_dir }}/R4 {{ ssh_user }}@172.20.20.4:/tmp/ansible_config.txt
       
     - name: Delete and load R4 configuration via SSH
       shell: |
-        sshpass -p '{{ ssh_password }}' ssh -o StrictHostKeyChecking=no -T {{ ssh_user }}@10.254.5.4 << 'ENDSSH'
+        sshpass -p '{{ ssh_password }}' ssh -o StrictHostKeyChecking=no -T {{ ssh_user }}@172.20.20.4 << 'ENDSSH'
         configure
         delete
         yes
@@ -141,11 +141,11 @@
     
     - name: Copy R5 config to router /tmp
       shell: |
-        sshpass -p '{{ ssh_password }}' scp -o StrictHostKeyChecking=no {{ config_dir }}/R5 {{ ssh_user }}@10.254.5.5:/tmp/ansible_config.txt
+        sshpass -p '{{ ssh_password }}' scp -o StrictHostKeyChecking=no {{ config_dir }}/R5 {{ ssh_user }}@172.20.20.5:/tmp/ansible_config.txt
       
     - name: Delete and load R5 configuration via SSH
       shell: |
-        sshpass -p '{{ ssh_password }}' ssh -o StrictHostKeyChecking=no -T {{ ssh_user }}@10.254.5.5 << 'ENDSSH'
+        sshpass -p '{{ ssh_password }}' ssh -o StrictHostKeyChecking=no -T {{ ssh_user }}@172.20.20.5 << 'ENDSSH'
         configure
         delete
         yes
