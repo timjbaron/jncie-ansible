@@ -25,9 +25,7 @@ set system processes dhcp-service traceoptions file dhcp_logfile
 set system processes dhcp-service traceoptions file size 10m
 set system processes dhcp-service traceoptions level all
 set system processes dhcp-service traceoptions flag packet
-set system ntp server 10.1.1.1
-set chassis aggregated-devices ethernet device-count 50
-set chassis network-services enhanced-ip
+
 set interfaces apply-groups mpls-iso-inet6
 set interfaces ge-0/0/0 description "test description for ansible push"
 set interfaces ge-0/0/0 unit 0 family inet address 10.1.2.1/24
