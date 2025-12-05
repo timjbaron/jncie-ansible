@@ -1,0 +1,108 @@
+---
+- name: Backup Juniper Router Configurations
+  hosts: localhost
+  gather_facts: no
+  
+  vars:
+    netconf_user: ansible
+    netconf_password: lab123
+  
+  tasks:
+    - name: Backup R1 configuration
+      junipernetworks.junos.junos_command:
+        commands:
+          - show configuration
+        display: set
+      vars:
+        ansible_connection: netconf
+        ansible_network_os: junos
+        ansible_host: 10.254.5.1
+        ansible_port: 830
+        ansible_user: "{{ netconf_user }}"
+        ansible_password: "{{ netconf_password }}"
+      register: r1_config
+      
+    - name: Save R1 configuration to file
+      copy:
+        content: "{{ r1_config.stdout[0] }}"
+        dest: ~/R1
+        
+    - name: Backup R2 configuration
+      junipernetworks.junos.junos_command:
+        commands:
+          - show configuration
+        display: set
+      vars:
+        ansible_connection: netconf
+        ansible_network_os: junos
+        ansible_host: 10.254.5.2
+        ansible_port: 830
+        ansible_user: "{{ netconf_user }}"
+        ansible_password: "{{ netconf_password }}"
+      register: r2_config
+      
+    - name: Save R2 configuration to file
+      copy:
+        content: "{{ r2_config.stdout[0] }}"
+        dest: ~/R2
+        
+    - name: Backup R3 configuration
+      junipernetworks.junos.junos_command:
+        commands:
+          - show configuration
+        display: set
+      vars:
+        ansible_connection: netconf
+        ansible_network_os: junos
+        ansible_host: 10.254.5.3
+        ansible_port: 830
+        ansible_user: "{{ netconf_user }}"
+        ansible_password: "{{ netconf_password }}"
+      register: r3_config
+      
+    - name: Save R3 configuration to file
+      copy:
+        content: "{{ r3_config.stdout[0] }}"
+        dest: ~/R3
+        
+    - name: Backup R4 configuration
+      junipernetworks.junos.junos_command:
+        commands:
+          - show configuration
+        display: set
+      vars:
+        ansible_connection: netconf
+        ansible_network_os: junos
+        ansible_host: 10.254.5.4
+        ansible_port: 830
+        ansible_user: "{{ netconf_user }}"
+        ansible_password: "{{ netconf_password }}"
+      register: r4_config
+      
+    - name: Save R4 configuration to file
+      copy:
+        content: "{{ r4_config.stdout[0] }}"
+        dest: ~/R4
+        
+    - name: Backup R5 configuration
+      junipernetworks.junos.junos_command:
+        commands:
+          - show configuration
+        display: set
+      vars:
+        ansible_connection: netconf
+        ansible_network_os: junos
+        ansible_host: 10.254.5.5
+        ansible_port: 830
+        ansible_user: "{{ netconf_user }}"
+        ansible_password: "{{ netconf_password }}"
+      register: r5_config
+      
+    - name: Save R5 configuration to file
+      copy:
+        content: "{{ r5_config.stdout[0] }}"
+        dest: ~/R5
+        
+    - name: Display summary
+      debug:
+        msg: "Backup complete - R1, R2, R3, R4, R5 saved to /root/"

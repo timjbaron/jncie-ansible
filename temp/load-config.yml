@@ -1,0 +1,164 @@
+---
+- name: Load configuration via SSH with delete + load set (R1-R5)
+  hosts: localhost
+  gather_facts: no
+  
+  vars:
+    ssh_user: ansible
+    ssh_password: lab123
+    config_dir: "."
+  
+  tasks:
+    # R1 Configuration
+    - name: Read R1 config file
+      shell: cat {{ config_dir }}/R1
+      register: r1_file_content
+      changed_when: false
+      
+    - name: Display R1 file content (first 10 lines)
+      debug:
+        msg: "{{ r1_file_content.stdout_lines[:10] }}"
+    
+    - name: Copy R1 config to router /tmp
+      shell: |
+        sshpass -p '{{ ssh_password }}' scp -o StrictHostKeyChecking=no {{ config_dir }}/R1 {{ ssh_user }}@10.254.5.1:/tmp/ansible_config.txt
+      
+    - name: Delete and load R1 configuration via SSH
+      shell: |
+        sshpass -p '{{ ssh_password }}' ssh -o StrictHostKeyChecking=no -T {{ ssh_user }}@10.254.5.1 << 'ENDSSH'
+        configure
+        delete
+        yes
+        load set /tmp/ansible_config.txt
+        commit
+        exit
+        ENDSSH
+      register: r1_load
+      
+    - name: Display R1 load result
+      debug:
+        var: r1_load.stdout_lines
+
+    # R2 Configuration
+    - name: Read R2 config file
+      shell: cat {{ config_dir }}/R2
+      register: r2_file_content
+      changed_when: false
+      
+    - name: Display R2 file content (first 10 lines)
+      debug:
+        msg: "{{ r2_file_content.stdout_lines[:10] }}"
+    
+    - name: Copy R2 config to router /tmp
+      shell: |
+        sshpass -p '{{ ssh_password }}' scp -o StrictHostKeyChecking=no {{ config_dir }}/R2 {{ ssh_user }}@10.254.5.2:/tmp/ansible_config.txt
+      
+    - name: Delete and load R2 configuration via SSH
+      shell: |
+        sshpass -p '{{ ssh_password }}' ssh -o StrictHostKeyChecking=no -T {{ ssh_user }}@10.254.5.2 << 'ENDSSH'
+        configure
+        delete
+        yes
+        load set /tmp/ansible_config.txt
+        commit
+        exit
+        ENDSSH
+      register: r2_load
+      
+    - name: Display R2 load result
+      debug:
+        var: r2_load.stdout_lines
+
+    # R3 Configuration
+    - name: Read R3 config file
+      shell: cat {{ config_dir }}/R3
+      register: r3_file_content
+      changed_when: false
+      
+    - name: Display R3 file content (first 10 lines)
+      debug:
+        msg: "{{ r3_file_content.stdout_lines[:10] }}"
+    
+    - name: Copy R3 config to router /tmp
+      shell: |
+        sshpass -p '{{ ssh_password }}' scp -o StrictHostKeyChecking=no {{ config_dir }}/R3 {{ ssh_user }}@10.254.5.3:/tmp/ansible_config.txt
+      
+    - name: Delete and load R3 configuration via SSH
+      shell: |
+        sshpass -p '{{ ssh_password }}' ssh -o StrictHostKeyChecking=no -T {{ ssh_user }}@10.254.5.3 << 'ENDSSH'
+        configure
+        delete
+        yes
+        load set /tmp/ansible_config.txt
+        commit
+        exit
+        ENDSSH
+      register: r3_load
+      
+    - name: Display R3 load result
+      debug:
+        var: r3_load.stdout_lines
+
+    # R4 Configuration
+    - name: Read R4 config file
+      shell: cat {{ config_dir }}/R4
+      register: r4_file_content
+      changed_when: false
+      
+    - name: Display R4 file content (first 10 lines)
+      debug:
+        msg: "{{ r4_file_content.stdout_lines[:10] }}"
+    
+    - name: Copy R4 config to router /tmp
+      shell: |
+        sshpass -p '{{ ssh_password }}' scp -o StrictHostKeyChecking=no {{ config_dir }}/R4 {{ ssh_user }}@10.254.5.4:/tmp/ansible_config.txt
+      
+    - name: Delete and load R4 configuration via SSH
+      shell: |
+        sshpass -p '{{ ssh_password }}' ssh -o StrictHostKeyChecking=no -T {{ ssh_user }}@10.254.5.4 << 'ENDSSH'
+        configure
+        delete
+        yes
+        load set /tmp/ansible_config.txt
+        commit
+        exit
+        ENDSSH
+      register: r4_load
+      
+    - name: Display R4 load result
+      debug:
+        var: r4_load.stdout_lines
+
+    # R5 Configuration
+    - name: Read R5 config file
+      shell: cat {{ config_dir }}/R5
+      register: r5_file_content
+      changed_when: false
+      
+    - name: Display R5 file content (first 10 lines)
+      debug:
+        msg: "{{ r5_file_content.stdout_lines[:10] }}"
+    
+    - name: Copy R5 config to router /tmp
+      shell: |
+        sshpass -p '{{ ssh_password }}' scp -o StrictHostKeyChecking=no {{ config_dir }}/R5 {{ ssh_user }}@10.254.5.5:/tmp/ansible_config.txt
+      
+    - name: Delete and load R5 configuration via SSH
+      shell: |
+        sshpass -p '{{ ssh_password }}' ssh -o StrictHostKeyChecking=no -T {{ ssh_user }}@10.254.5.5 << 'ENDSSH'
+        configure
+        delete
+        yes
+        load set /tmp/ansible_config.txt
+        commit
+        exit
+        ENDSSH
+      register: r5_load
+      
+    - name: Display R5 load result
+      debug:
+        var: r5_load.stdout_lines
+        
+    - name: Display summary
+      debug:
+        msg: "Configuration load complete for all routers (R1-R5)"

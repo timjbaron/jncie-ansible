@@ -57,8 +57,8 @@ set interfaces fxp0 unit 0 family inet6 dhcpv6-client client-ia-type ia-na
 set interfaces fxp0 unit 0 family inet6 dhcpv6-client client-identifier duid-type duid-ll
 set interfaces fxp0 unit 0 family inet6 dhcpv6-client vendor-id Juniper:vmx:VM6858B0F900
 set interfaces lo0 unit 0 family inet address 172.16.5.1/32
-set interfaces lo0 unit 0 family inet6 address 2025::1/128
 set interfaces lo0 unit 0 family iso address 49.0001.1721.6000.5001.00
+set interfaces lo0 unit 0 family inet6 address 2025::1/128
 set policy-options policy-statement CE1-export term 1 from protocol bgp
 set policy-options policy-statement CE1-export term 1 from protocol direct
 set policy-options policy-statement CE1-export term 1 then community set CE
@@ -66,6 +66,9 @@ set policy-options policy-statement CE1-export term 1 then accept
 set policy-options policy-statement CE1-import term 1 from protocol bgp
 set policy-options policy-statement CE1-import term 1 from community CE
 set policy-options policy-statement CE1-import term 1 then accept
+set policy-options policy-statement export-ipv6-lo0 term 1 from protocol direct
+set policy-options policy-statement export-ipv6-lo0 term 1 from route-filter 2025::0/120 orlonger
+set policy-options policy-statement export-ipv6-lo0 term 1 then accept
 set policy-options policy-statement ipv6-all term 1 from family inet6
 set policy-options policy-statement ipv6-all term 1 then accept
 set policy-options policy-statement ldp-routes term 1 from route-filter 172.16.1.48/30 exact
@@ -85,6 +88,7 @@ set protocols bgp group ibgp local-address 172.16.5.1
 set protocols bgp group ibgp family inet unicast
 set protocols bgp group ibgp family inet-vpn unicast
 set protocols bgp group ibgp family inet6 unicast
+set protocols bgp group ibgp export export-ipv6-lo0
 set protocols bgp group ibgp local-as 65001
 set protocols bgp group ibgp neighbor 172.16.5.5
 set protocols bgp group peer-ebgp-ipv6 type external
