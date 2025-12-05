@@ -35,6 +35,10 @@ set protocols bgp group ibgp type internal
 set protocols bgp group ibgp local-address 172.16.5.5
 set protocols bgp group ibgp family inet unicast
 set protocols bgp group ibgp family inet6 unicast
+set protocols bgp group ibgp export export-ipv6-lo0
+set policy-options policy-statement export-ipv6-lo0 term 1 from protocol direct
+set policy-options policy-statement export-ipv6-lo0 term 1 from route-filter 2025::0/120 orlonger
+set policy-options policy-statement export-ipv6-lo0 term 1 then accept
 set protocols bgp group ibgp cluster 0.0.0.1
 set protocols bgp group ibgp neighbor 172.16.5.1
 set protocols bgp group ibgp neighbor 172.16.5.2

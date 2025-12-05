@@ -51,6 +51,10 @@ set protocols bgp group ibgp family inet unicast
 set protocols bgp group ibgp family inet-vpn unicast
 set protocols bgp group ibgp family inet6 unicast
 set protocols bgp group ibgp export advert-summary
+set protocols bgp group ibgp export export-ipv6-lo0
+set policy-options policy-statement export-ipv6-lo0 term 1 from protocol direct
+set policy-options policy-statement export-ipv6-lo0 term 1 from route-filter 2025::0/120 orlonger
+set policy-options policy-statement export-ipv6-lo0 term 1 then accept
 set protocols bgp group ibgp local-as 65001
 set protocols bgp group ibgp neighbor 172.16.5.5
 set protocols isis interface ge-0/0/0.0
