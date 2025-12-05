@@ -31,6 +31,8 @@ set interfaces lo0 unit 0 family inet6 address 2025::5/128
 set interfaces lo0 unit 0 family iso address 49.0001.1721.6000.5005.00
 set routing-options autonomous-system 65001
 set protocols router-advertisement interface fxp0.0 managed-configuration
+set protocols bgp group ibgp family inet6 unicast
+set protocols bgp group ibgp family inet unicast
 set protocols bgp group ibgp type internal
 set protocols bgp group ibgp local-address 172.16.5.5
 set protocols bgp group ibgp cluster 0.0.0.1
